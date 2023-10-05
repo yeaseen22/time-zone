@@ -40,11 +40,11 @@ const useClock = (timezone, offset = 0) => {
 
   return {
     date: localDate,
-	dateUTC: utc,
-	offset,
-	timezone,
-	localoffset,
-	localTimezone
+    dateUTC: utc,
+    offset,
+    timezone,
+    localOffset,
+    localTimezone,
   };
 };
 
