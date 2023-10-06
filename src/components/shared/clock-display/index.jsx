@@ -1,20 +1,18 @@
-import React from "react";
-import { format } from "date-fns";
+import { format } from 'date-fns';
+import React from 'react';
 
 const ClockDisplay = ({ date, title, timezone, offset }) => {
-  let localOffsetHr = offset / 60;
-  return (
-    <div>
-      <h1>Title: {title}</h1>
-      <h1>{date.toLocalTimeString()}</h1>
-      <p>
-        {timezone}{" "}
-        {localOffsetHr < 0
-          ? `+${Math.abs(localOffsetHr)}`
-          : `-${Math.abs(localOffsetHr)}`}
-      </p>
-    </div>
-  );
+	let offsetHr = offset / 60;
+	return (
+		<div>
+			<h1>Title: {title}</h1>
+			<h3>{format(date, 'yyyy-MM-dd hh:mm:ss aaa')}</h3>
+			<p>
+				{timezone}
+				{offsetHr > 0 ? `+${Math.abs(offsetHr)}` : `-${Math.abs(offsetHr)}`}
+			</p>
+		</div>
+	);
 };
 
 export default ClockDisplay;
