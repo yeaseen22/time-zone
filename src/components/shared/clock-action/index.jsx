@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+
 const defaultOffsets = [
 	-11.5, -11, -10.5, -10, -9.5, -9, -8.5, -8, 0, 1, 2, 3, 4, 5, 5.5, 6, 6.5,
 ];
@@ -11,7 +12,7 @@ const ClockActions = ({ local = false, clock, updateClock }) => {
 		let { name, value } = e.target;
 
 		if (name === 'offset') {
-			value = parseInt(value) * 60;
+			value = Number(value) * 60;
 		}
 		updateClock({
 			[name]: value,
