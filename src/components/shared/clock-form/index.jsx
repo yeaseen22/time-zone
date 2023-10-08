@@ -5,17 +5,25 @@
  */
 
 import React, { useState } from "react";
+import {getOffset} from '../../../utils/timezone'
 
 const ClockForm = ({ values, handleClock, title = true, edit = false }) => {
     const [formValues, setFormValues] = useState({ ...values });
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormValues({
-            ...formValues,
+		let { name, value } = e.target;
+
+		if (name === 'offset') {
+			value = Number(value) * 60;
+		}
+		
+
+        setFormValues(prev => ({
+            ...prev,
             [name]: value,
-        });
-    };
+            
+        }))
+	};
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -37,26 +45,40 @@ const ClockForm = ({ values, handleClock, title = true, edit = false }) => {
             </div>
             <div>
                 <label htmlFor="timezone">Enter TimeZone</label>
-                <input
-                    type="text"
-                    id="timezone"
+                <select
                     name="timezone"
+                    id="timezone"
                     value={formValues.timezone}
                     onChange={handleChange}
-                />
+                >
+                    <option value="GMT">GMT</option>
+                    <option value="UTC">UTC</option>
+                    <option value="PST">PST</option>
+                    <option value="EST">EST</option>
+                    <option value="EDT">EDT</option>
+                    <option value="BST">BST</option>
+                    <option value="MST">MST</option>
+                </select>
             </div>
-            <div>
-                <label htmlFor="offset">Enter Offset</label>
-                <input
-                    type="number"
-                    id="offset"
-                    name="offset"
-                    value={formValues.offset}
-                    onChange={handleChange}
-                />
-            </div>
+            {(formValues.timezone === "GMT" || formValues.timezone === "UTC") && (
+                <div>
+                    <label htmlFor="offset">Enter Offset</label>
+                    <select
+                        name="offset"
+                        id="offset"
+                        value={formValues.offset / 60}
+                        onChange={handleChange}
+                    >
+                        {getOffset().map((offset) => (
+                            <option value={offset} key={offset}>
+                                {offset}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            )}
             <button>{edit ? "Update" : "Create"}</button>
         </form>
     );
 };
-export default ClockForm
+export default ClockForm;
