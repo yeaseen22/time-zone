@@ -1,4 +1,4 @@
-import {} from "../constants/timezone";
+import { TIMEZONE_OFFSET } from "../constants/timezone";
 
 export const getOffset = (start = -11.5, ending = 12) => {
   const offset = [];
@@ -9,9 +9,5 @@ export const getOffset = (start = -11.5, ending = 12) => {
 };
 
 export const getTimeZone = () => {
-  return {
-    GMT: 0,
-    UTC: 0,
-    ...TIMEZONE_OFFSET,
-  };
+  return ["UTC", "GMT", ...Object.keys(TIMEZONE_OFFSET)];
 };
