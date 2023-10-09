@@ -26,6 +26,7 @@ const ClockForm = ({
         }
     },[formValues.timezone])
 
+    // handle changes for input
   const handleChange = (e) => {
     let { name, value } = e.target;
 
@@ -33,6 +34,7 @@ const ClockForm = ({
       value = Number(value) * 60;
     }
 
+    // FormValues data handling
     setFormValues((prev) => ({
       ...prev,
       [name]: value,

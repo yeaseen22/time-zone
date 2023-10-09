@@ -2,7 +2,10 @@ import { format } from 'date-fns';
 import React from 'react';
 
 const ClockDisplay = ({ date, title, timezone, offset }) => {
+
+	// find out offset
 	let offsetHr = offset / 60;
+
 	return (
 		<div>
 			<h1>Title: {title}</h1>

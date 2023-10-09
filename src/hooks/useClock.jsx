@@ -2,6 +2,7 @@ import { addMinutes } from 'date-fns';
 import { useEffect, useState } from 'react';
 import {TIMEZONE_OFFSET} from '../constants/timezone'
 
+// hooks for create clock
 const useClock = (timezone, offset) => {
 	const [localDate, setLocalDate] = useState(null);
 	const [localTimezone, setLocalTimezone] = useState(null);
