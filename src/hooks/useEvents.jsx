@@ -2,60 +2,63 @@ import { useState } from "react";
 import shortid from "shortid";
 
 const useEvents = () => {
-  const [state, setState] = useState({});
+	const [state, setState] = useState({});
 
-  const getEventsByClockId = (clockId, isArray = false) => {
-   return Object.keys(state).filter((item) => item.startsWith(clockId));
-    // if (!isArray) return event
-    // return Object.values(event)
-  };
-  const getEvents = (isArray = false) => {
-    if (!isArray) return state;
-    return Object.values(state);
-  };
+	const getEventsByClockId = (clockId) => {
+		return Object.keys(state).filter((item) => item.startsWith(clockId));
+	};
 
-  const addEvents = ({ event }) => {
-    event.id = shortid.generate();
-    setState((prev) => ({
-      ...prev,
-      [`${event.clockId}|${event.id}`]: event,
-    }));
+	const getEvents = (isArray = false) => {
+		if (!isArray) return state;
 
-    return event
-  };
+		return Object.values(state);
+	};
 
-  const deleteEvent = (id) => {
-    const events = { ...state };
-    delete events[id];
-    setState(events);
-  };
+	const addEvent = (event) => {
+		event.id = shortid.generate();
+		const { id, clockId } = event;
+		setState((prev) => ({
+			...prev,
+			[`${clockId}|${id}`]: event,
+		}));
 
-  const deleteEventById = (clockId) => {
-    const events = Object.keys(state).filter(
-      (item) => !item.startsWith(clockId)
-    );
+		return event;
+	};
 
-    setState(events);
-  };
+	const deleteEvent = (id) => {
+		const events = { ...state };
+		delete events[id];
+		setState(events);
+	};
 
-  const updateEvent = (updateEvent, id) => {
-    const events = { ...state };
-    events[id] = {
-      ...events[id],
-      ...updateEvent,
-    };
-    setState(events);
-  };
+	const deleteEventByClock = (clockId) => {
+		const events = Object.keys(state).filter(
+			(item) => !item.startsWith(clockId)
+		);
 
-  return {
-    events: state,
-    getEventsByClockId,
-    getEvents,
-    addEvents,
-    deleteEvent,
-    deleteEventById,
-    updateEvent,
-  };
+		setState(events);
+	};
+
+	const updateEvent = (updatedEvent, id) => {
+		const events = { ...state };
+		events[id] = {
+			...events[id],
+			...updatedEvent,
+		};
+
+		setState(events);
+	};
+
+	return {
+		events: state,
+		getEventsByClockId,
+		getEvents,
+		addEvent,
+		deleteEvent,
+		deleteEventByClock,
+		updateEvent,
+	};
 };
+
 
 export default useEvents;

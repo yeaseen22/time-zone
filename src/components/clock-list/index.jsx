@@ -13,11 +13,11 @@ const ClockList = ({ clocks, updateClock, deleteClcok, localClock }) => {
         <div>
           {clocks.map((clock) => (
             <ClockListItem
-              clock={clock}
               key={clock.id}
-              localClock={localClock}
+              clock={clock}
               updateClock={updateClock}
               deleteClcok={deleteClcok}
+              localClock={localClock}
             />
           ))}
         </div>
